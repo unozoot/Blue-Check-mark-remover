@@ -35,12 +35,6 @@ Firefox users can follow the temporary-install and AMO packaging instructions in
 Read the [privacy policy](PRIVACY.md). The Following import never follows,
 unfollows, likes, posts, messages, or changes anything public on X.
 
-## Chrome Web Store
-
-The release package is built separately from these source files. Store listing
-copy and reviewer instructions are available in
-[`release/STORE_SUBMISSION.md`](release/STORE_SUBMISSION.md).
-
 ## Notes
 
 X can change its page markup. If badge detection stops working, selectors or
