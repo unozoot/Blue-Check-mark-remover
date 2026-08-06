@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hide Premium X Posts</title><link rel="stylesheet" href="popup.css"></head>
+<body>
+<label class="toggle-row"><span><strong>Enable verification filters</strong><small>Selected posts are hidden visually, never blocked.</small></span>
+<input id="enabled" type="checkbox" role="switch"></label>
+<section aria-labelledby="badge-title"><h2 id="badge-title">Badge types to hide</h2>
+<label class="filter-row"><span><i class="badge blue"></i>Blue / Premium</span><input data-badge-filter="blue" type="checkbox"></label>
+<label class="filter-row"><span><i class="badge gold"></i>Gold / Organizations</span><input data-badge-filter="gold" type="checkbox"></label>
+<label class="filter-row"><span><i class="badge gray"></i>Gray / Government</span><input data-badge-filter="gray" type="checkbox"></label>
+</section>
+<section aria-labelledby="following-title"><h2 id="following-title">Accounts you follow</h2>
+<p class="section-help"><span id="following-count">0</span> imported accounts always remain visible.</p>
+<div class="button-row"><button id="import-following" type="button">Import Following</button>
+<button id="clear-following" class="secondary" type="button">Clear</button></div>
+<p id="import-status" role="status" aria-live="polite"></p></section>
+<section aria-labelledby="whitelist-title"><h2 id="whitelist-title">Always show accounts</h2>
+<form id="whitelist-form"><label class="sr-only" for="username">X username</label>
+<div class="input-row"><span aria-hidden="true">@</span><input id="username" maxlength="15"
+pattern="[A-Za-z0-9_]{1,15}" autocomplete="off" placeholder="username" required><button>Add</button></div>
+<p id="message" role="status" aria-live="polite"></p></form>
+<ul id="whitelist" aria-label="Whitelisted accounts"></ul><p id="empty-state">No accounts added.</p></section>
+<script src="popup.js"></script></body></html>

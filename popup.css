@@ -1,0 +1,20 @@
+:root{color-scheme:light dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+body{width:320px;margin:0;padding:16px;background:Canvas;color:CanvasText}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer}
+strong,small{display:block}strong{font-size:14px}small{max-width:225px;margin-top:4px;color:#71767b;font-size:12px;line-height:1.35}
+#enabled{width:19px;height:19px;accent-color:#1d9bf0}
+section{margin-top:16px;padding-top:14px;border-top:1px solid color-mix(in srgb,CanvasText 18%,transparent)}
+h2{margin:0 0 9px;font-size:13px}.input-row{display:flex;align-items:center;overflow:hidden;border:1px solid #8b98a5;border-radius:8px}
+.input-row>span{padding-left:9px;color:#71767b}#username{min-width:0;flex:1;border:0;outline:0;background:transparent;padding:8px 3px;color:inherit}
+button{border:0;border-radius:6px;background:#1d9bf0;color:white;padding:7px 11px;font-weight:700;cursor:pointer}.input-row button{margin-right:3px}
+button:hover{background:#1a8cd8}button:focus-visible,input:focus-visible{outline:2px solid #1d9bf0;outline-offset:1px}
+#message{min-height:16px;margin:5px 0 0;color:#71767b;font-size:11px}ul{max-height:155px;overflow-y:auto;margin:4px 0 0;padding:0;list-style:none}
+li{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid color-mix(in srgb,CanvasText 12%,transparent);font-size:13px}
+li button{background:transparent;color:#f4212e;padding:4px 6px;font-size:11px}li button:hover{background:rgb(244 33 46/10%)}
+#empty-state{margin:7px 0 0;color:#71767b;font-size:12px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.section-help{margin:0 0 9px;color:#71767b;font-size:12px;line-height:1.4}
+.button-row{display:flex;gap:7px}.button-row button{font-size:12px}.button-row .secondary{background:transparent;color:#f4212e;border:1px solid #8b98a5}
+#import-status{min-height:16px;margin:6px 0 0;color:#71767b;font-size:11px}.filter-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;font-size:13px;cursor:pointer}
+.filter-row input{width:17px;height:17px;accent-color:#1d9bf0}
+.badge{display:inline-block;width:10px;height:10px;margin-right:7px;border-radius:50%;vertical-align:0}
+.badge.blue{background:#1d9bf0}.badge.gold{background:#ffd400}.badge.gray{background:#829aab}
