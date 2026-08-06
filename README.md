@@ -27,6 +27,9 @@ requests, mute accounts, or modify the user's X account.
 Use the toolbar popup to choose badge filters, manage the whitelist, or start a
 read-only Following import.
 
+Firefox users can follow the temporary-install and AMO packaging instructions in
+[FIREFOX.md](FIREFOX.md).
+
 ## Privacy
 
 Read the [privacy policy](PRIVACY.md). The Following import never follows,

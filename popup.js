@@ -1,3 +1,6 @@
+const isFirefox = typeof browser !== "undefined" &&
+  browser.runtime.getURL("").startsWith("moz-extension:");
+const settingsStorage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 const enabledToggle = document.querySelector("#enabled");
 const form = document.querySelector("#whitelist-form");
 const usernameInput = document.querySelector("#username");
@@ -12,7 +15,7 @@ const badgeFilterInputs = [...document.querySelectorAll("[data-badge-filter]")];
 const USERNAME = /^[a-z0-9_]{1,15}$/i;
 let whitelist = [];
 const normalize = (value) => value.trim().replace(/^@/, "").toLowerCase();
-const save = () => chrome.storage.sync.set({ whitelist });
+const save = () => settingsStorage.set({ whitelist });
 
 function render() {
   list.replaceChildren();
@@ -35,7 +38,7 @@ function render() {
     list.append(item);
   });
 }
-chrome.storage.sync.get({ enabled: true, whitelist: [], badgeFilters: { blue: true, gold: false, gray: false } }, (saved) => {
+settingsStorage.get({ enabled: true, whitelist: [], badgeFilters: { blue: true, gold: false, gray: false } }, (saved) => {
   enabledToggle.checked = saved.enabled !== false;
   badgeFilterInputs.forEach((input) => {
     input.checked = saved.badgeFilters[input.dataset.badgeFilter] === true;
@@ -44,14 +47,14 @@ chrome.storage.sync.get({ enabled: true, whitelist: [], badgeFilters: { blue: tr
   render();
 });
 enabledToggle.addEventListener("change", () =>
-  chrome.storage.sync.set({ enabled: enabledToggle.checked })
+  settingsStorage.set({ enabled: enabledToggle.checked })
 );
 badgeFilterInputs.forEach((input) => {
   input.addEventListener("change", () => {
     const badgeFilters = Object.fromEntries(
       badgeFilterInputs.map((entry) => [entry.dataset.badgeFilter, entry.checked])
     );
-    chrome.storage.sync.set({ badgeFilters });
+    settingsStorage.set({ badgeFilters });
   });
 });
 form.addEventListener("submit", async (event) => {

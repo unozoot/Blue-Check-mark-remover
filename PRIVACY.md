@@ -17,10 +17,11 @@ The extension stores only:
 - Public X usernames that you explicitly add to the manual whitelist.
 - Public X usernames collected when you explicitly run the Following import.
 
-The enabled setting, badge-category choices, and manual whitelist use Chrome's
-synchronized extension storage and may be synced through your signed-in browser
-profile. Imported Following accounts use Chrome's local extension storage. The
-developer cannot access either storage area.
+On Chromium browsers, the enabled setting, badge-category choices, and manual
+whitelist use synchronized extension storage; imported Following accounts use
+local extension storage. On Firefox, all extension settings and imported accounts
+remain in local extension storage. The developer cannot access either storage
+area.
 
 The Following import is read-only. It reads public usernames displayed in the
 central list as you scroll your Following page. It never follows, unfollows,

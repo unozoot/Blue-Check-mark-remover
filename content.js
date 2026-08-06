@@ -9,6 +9,10 @@
     gray: [130, 154, 171]
   };
   const USERNAME = /^[a-z0-9_]{1,15}$/i;
+  const isFirefox = typeof browser !== "undefined" &&
+    browser.runtime.getURL("").startsWith("moz-extension:");
+  const settingsStorage = isFirefox ? chrome.storage.local : chrome.storage.sync;
+  const settingsAreaName = isFirefox ? "local" : "sync";
   let enabled = true;
   let badgeFilters = { blue: true, gold: false, gray: false };
   let reveal = false;
@@ -126,7 +130,7 @@
       @media(max-width:700px){:host(.fallback){right:12px;bottom:72px}}
     </style><button type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6.2 7.1v5.2l-3.6 1.8v-7L4 5Z"/></svg><span>Verification Filter</span></button>`;
     shadow.querySelector("button").addEventListener("click", () => {
-      if (!enabled) return void chrome.storage.sync.set({ enabled: true });
+      if (!enabled) return void settingsStorage.set({ enabled: true });
       reveal = !reveal;
       refreshButton();
       schedule();
@@ -211,7 +215,7 @@
   (document.head || document.documentElement).appendChild(style);
   addButton();
 
-  chrome.storage.sync.get({ enabled: true, whitelist: [], badgeFilters: { blue: true, gold: false, gray: false } }, (saved) => {
+  settingsStorage.get({ enabled: true, whitelist: [], badgeFilters: { blue: true, gold: false, gray: false } }, (saved) => {
     whitelist = new Set(saved.whitelist.map(normalize));
     badgeFilters = { blue: true, gold: false, gray: false, ...saved.badgeFilters };
     setEnabled(saved.enabled !== false);
@@ -221,7 +225,7 @@
     schedule();
   });
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === "sync") {
+    if (area === settingsAreaName) {
       if (changes.enabled) setEnabled(changes.enabled.newValue !== false);
       if (changes.whitelist) {
         whitelist = new Set((changes.whitelist.newValue || []).map(normalize));
