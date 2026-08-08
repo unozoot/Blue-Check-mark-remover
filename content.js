@@ -1,8 +1,8 @@
 (() => {
   const HIDDEN = "data-hide-premium-x-post";
-  const TWEETS = 'article[data-testid="tweet"]';
+  const TWEETS = 'article[data-testid="tweet"], article[data-tweet-id], article[itemtype="https://schema.org/SocialMediaPosting"]';
   const AUTHOR = '[data-testid="User-Name"]';
-  const BADGE = '[data-testid="icon-verified"], svg[aria-label="Verified account"]';
+  const BADGE = '[data-testid="icon-verified"], [aria-label="Verified account"], [data-icon^="icon-verified"]';
   const BADGE_COLORS = {
     blue: [29, 155, 240],
     gold: [255, 212, 0],
@@ -28,24 +28,48 @@
       target.every((value, index) => Math.abs(Number(rgb[index]) - value) <= 8));
   }
   function badgeType(badge) {
-    const style = getComputedStyle(badge);
-    const colors = [style.color, style.fill];
+    const icon = badge.matches('[data-icon^="icon-verified"]')
+      ? badge
+      : badge.querySelector('[data-icon^="icon-verified"]');
+    const iconName = icon?.getAttribute("data-icon") || "";
+    if (iconName.includes("gold")) return "gold";
+
+    const colors = [];
+    for (const element of [badge, ...badge.querySelectorAll("svg, path, stop")]) {
+      const style = getComputedStyle(element);
+      colors.push(style.color, style.fill, element.getAttribute("fill"),
+        element.getAttribute("stop-color"));
+    }
     if (badge.parentElement) {
       const parentStyle = getComputedStyle(badge.parentElement);
       colors.push(parentStyle.color, parentStyle.fill);
     }
-    return Object.keys(BADGE_COLORS).find((type) =>
+    const colorType = Object.keys(BADGE_COLORS).find((type) =>
       colors.some((color) => matchesColor(color, BADGE_COLORS[type]))
-    ) || "gray";
+    );
+    if (colorType) return colorType;
+    if (iconName === "icon-verified") return "blue";
+    return "gray";
   }
   function authorDetails(tweet) {
-    return [...tweet.querySelectorAll(AUTHOR)].map((element) => {
+    const authors = [...tweet.querySelectorAll(AUTHOR)].map((element) => {
       for (const link of element.querySelectorAll('a[href^="/"]')) {
         const username = normalize(link.getAttribute("href")?.split("/")[1] || "");
         if (USERNAME.test(username)) return { element, username };
       }
       return { element, username: "" };
     });
+    for (const person of tweet.querySelectorAll(
+      '[itemprop="author"][itemtype="https://schema.org/Person"]'
+    )) {
+      const username = normalize(
+        person.querySelector('meta[itemprop="alternateName"]')?.getAttribute("content") || ""
+      );
+      if (USERNAME.test(username)) {
+        authors.push({ element: person.closest("article") || tweet, username });
+      }
+    }
+    return authors;
   }
   function hasFilteredBadge(element) {
     return [...element.querySelectorAll(BADGE)].some((badge) => {

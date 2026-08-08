@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Verification Post Filter for X",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Filters posts from blue, gold, or gray verified accounts on X, with whitelists and a read-only Following import.",
   "icons": {
     "16": "icons/icon-16.png",

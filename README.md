@@ -1,6 +1,6 @@
 # Verification Post Filter for X
 
-A Chromium extension that visually hides posts on X according to the author's
+A Chromium and Firefox extension that visually hides posts on X according to the author's
 verification badge. Blue/Premium filtering is enabled by default; gold
 organization and gray government filters are optional.
 

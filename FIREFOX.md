@@ -10,7 +10,7 @@ is sent to the developer or to third parties.
 
 ## Test temporarily
 
-1. Extract `verification-post-filter-x-firefox-v1.0.0.zip` to a temporary
+1. Extract `verification-post-filter-x-firefox-v1.0.1.zip` to a temporary
    folder.
 2. Open `about:debugging#/runtime/this-firefox`.
 3. Select **Load Temporary Add-on**.
@@ -18,5 +18,5 @@ is sent to the developer or to third parties.
 5. Open or refresh X.
 
 For AMO submission, upload the generated
-`verification-post-filter-x-firefox-v1.0.0.zip` without extracting it. Inside
+`verification-post-filter-x-firefox-v1.0.1.zip` without extracting it. Inside
 that archive, the Firefox manifest is correctly named `manifest.json`.
